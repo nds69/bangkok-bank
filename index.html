@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* Logo Color Reference: approx #0047BA */
-        
+        /* General Setup */
         body {
             font-family: 'Prompt', sans-serif;
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
@@ -25,6 +24,7 @@
 
         h2 { text-align: center; color: #0047BA; margin: 0 0 20px 0; font-size: 20px; }
 
+        /* Slip Area */
         .slip-wrapper {
             background-color: #fff; padding: 25px 20px;
             box-sizing: border-box; position: relative; overflow: hidden;
@@ -69,14 +69,15 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* --- UPDATED: Logo Border Style --- */
+        /* --- LOGO BORDER FIX --- */
         .logo-img { 
             width: 100%; 
             height: 100%; 
             object-fit: contain; 
-            border-radius: 8px; /* အနားဝိုင်း */
-            border: 1px solid rgba(0, 71, 186, 0.3); /* အပြာရောင်ဘောင်ပါးပါး */
-            padding: 2px; /* ဘောင်နှင့်ပုံကြား အကွာအဝေး */
+            border-radius: 8px;
+            /* Use SOLID color instead of RGBA to ensure it captures */
+            border: 1px solid #8faadd; 
+            padding: 2px; 
             background: white;
         }
         
@@ -108,6 +109,7 @@
             box-shadow: 0 3px 6px rgba(0, 71, 186, 0.2);
         }
 
+        /* Inputs */
         .input-group { margin-bottom: 15px; width: 100%; }
         .input-group label { display: block; margin-bottom: 8px; font-size: 14px; color: #555; font-weight: 600; }
         .input-wrapper { position: relative; width: 100%; }
@@ -127,6 +129,7 @@
             box-shadow: 0 5px 15px rgba(0, 71, 186, 0.3); margin-top: 10px;
         }
 
+        /* Contact & Modal */
         .contact-bubble { position: fixed; top: 20px; right: 20px; background: #3b5998; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 999999; animation: bounce 2s infinite; }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2147483647; backdrop-filter: blur(5px); }
         .modal-content { background: white; padding: 25px; border-radius: 15px; text-align: center; width: 280px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: popIn 0.3s ease-out; position: relative; }
@@ -220,15 +223,22 @@
 
         function download() {
             const el = document.getElementById('bbl-slip');
+            
+            // UI styles
             const originalBorder = el.style.border;
             const originalShadow = el.style.boxShadow;
             const originalRadius = el.style.borderRadius;
             
+            // Adjust for Download (Square, visible outer border)
             el.style.borderRadius = '0';
             el.style.border = '1px solid #dcdcdc';
             el.style.boxShadow = '0 0 15px rgba(0,0,0,0.1)';
 
-            html2canvas(el, { scale: 3, backgroundColor: "#ffffff" }).then(canvas => {
+            html2canvas(el, { 
+                scale: 3, // High quality to capture thin borders
+                backgroundColor: "#ffffff" 
+            }).then(canvas => {
+                // Restore UI
                 el.style.border = originalBorder;
                 el.style.boxShadow = originalShadow;
                 el.style.borderRadius = originalRadius;
